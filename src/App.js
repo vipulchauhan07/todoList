@@ -28,11 +28,19 @@ class App extends Component {
     this.setState({tasks:tasks});
     }
 
+
   }
 
   handleDelete=(task)=>{
     // use filter to filter out task from array
-
+    const filterTask = this.state.tasks;
+    for(let i = 0; i < filterTask.length; i++) {
+      if(task === filterTask[i]) {
+        delete filterTask[i];
+        break;
+      }
+    }
+    this.setState({tasks:filterTask});
   }
   render() {
    const {task,tasks}=this.state;
@@ -41,8 +49,9 @@ class App extends Component {
     return (
       <div style={{margin:'10%'}}>
         
-        <input  onChange={this.handleOnChange}/>
+        <input onChange={this.handleOnChange}/>
         <button onClick={this.handleClick}>Add Task</button>
+
  {tasks.map((task)=>
        <Task task={task} handleDelete={this.handleDelete}/>
  )}
